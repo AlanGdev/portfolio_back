@@ -1,12 +1,12 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const Skill = require('./models/skill');
+require('dotenv').config();
 
 const app = express();
 
 mongoose
-	.connect(
-		'mongodb+srv://alangrolleau:BamsukTqLEc3xhbP@cluster0.psblf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',
-	)
+	.connect(process.env.MONGODB_URI)
 	.then(() => console.log('Connexion à MongoDB réussie'))
 	.catch(() => console.log('Connexion à MongoDB échouée'));
 
