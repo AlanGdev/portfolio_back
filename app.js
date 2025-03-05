@@ -9,6 +9,7 @@ require('dotenv').config();
 const app = express();
 
 app.use(express.json());
+app.use('/images', express.static('images'));
 
 mongoose
 	.connect(process.env.MONGODB_URI)

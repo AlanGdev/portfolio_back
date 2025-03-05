@@ -9,10 +9,11 @@ const projectSchema = new mongoose.Schema({
 		required: true,
 	},
 	lien_github: { type: String, required: true },
-	lien_demo: { type: String }, // Optionnel : lien vers une version en ligne
-	technologies: [{ type: String, required: true }], // Liste des technologies utilisées
-	date_creation: { type: Date, default: Date.now }, // Date de création du projet
-	//image: { type: String }, // Optionnel : URL de l'image du projet
+	lien_demo: { type: String },
+	image: { type: String, required: true },
+	images_detail: [{ type: String }],
+	technologies: [{ type: String, required: true }],
+	date_creation: { type: Date, default: Date.now },
 });
 
 module.exports = mongoose.model('Project', projectSchema);
