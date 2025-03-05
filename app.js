@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const Skill = require('./models/skill');
 const userRouter = require('./routes/user');
+const skillRouter = require('./routes/skill');
 require('dotenv').config();
 
 const app = express();
@@ -31,5 +32,6 @@ app.use((req, res, next) => {
 });*/
 
 app.use('/api/auth/', userRouter);
+app.use('/api/skills/', skillRouter);
 
 module.exports = app;
