@@ -1,9 +1,12 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const Skill = require('./models/skill');
+const userRouter = require('./routes/user');
 require('dotenv').config();
 
 const app = express();
+
+app.use(express.json());
 
 mongoose
 	.connect(process.env.MONGODB_URI)
@@ -23,8 +26,10 @@ app.use((req, res, next) => {
 	next();
 });
 
-app.use((req, res) => {
+/*app.use((req, res) => {
 	res.json({ message: 'requête reçue côté app.js' });
-});
+});*/
+
+app.use('/api/auth/', userRouter);
 
 module.exports = app;
