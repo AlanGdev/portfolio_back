@@ -1,6 +1,7 @@
 const Skill = require('../models/skill');
 
 exports.createSkill = (req, res, next) => {
+	console.log('createskill');
 	try {
 		const {
 			nom,
