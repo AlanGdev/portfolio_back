@@ -10,12 +10,33 @@ if (!fs.existsSync(imageFolderPath)) {
 const BASE_URL = 'http://localhost:4000';
 
 const processImages = async (req, res, next) => {
-	try {
-		if (!req.files) return next();
+	console.log(
+		'Fichiers reçus pour traitement :',
+		req.file ? req.file : req.files,
+	);
 
+	try {
 		req.processedImages = {};
 
-		if (req.files['image']) {
+		// Traitement de l'image principale
+		if (req.file) {
+			console.log("Traitement de l'image unique...");
+			const imageBuffer = req.file.buffer;
+			const imageFileName = `image-${Date.now()}.webp`;
+			const imageFullPath = path.join(imageFolderPath, imageFileName);
+
+			await sharp(imageBuffer)
+				.resize(800)
+				.toFormat('webp')
+				.webp({ quality: 80 })
+				.toFile(imageFullPath);
+
+			req.processedImages.image = `${BASE_URL}/images/${imageFileName}`;
+		}
+
+		// Traitement de l'image principale pour un projet
+		if (req.files && req.files['image']) {
+			console.log("Traitement de l'image principale d'un projet...");
 			const imageBuffer = req.files['image'][0].buffer;
 			const imageFileName = `image-${Date.now()}.webp`;
 			const imageFullPath = path.join(imageFolderPath, imageFileName);
@@ -29,7 +50,9 @@ const processImages = async (req, res, next) => {
 			req.processedImages.image = `${BASE_URL}/images/${imageFileName}`;
 		}
 
-		if (req.files['images_detail']) {
+		// Traitement des images de détail pour un projet
+		if (req.files && req.files['images_detail']) {
+			console.log('Traitement des images de détail...');
 			req.processedImages.images_detail = [];
 			for (const file of req.files['images_detail']) {
 				const detailFileName = `detail-${Date.now()}-${Math.round(
@@ -49,6 +72,7 @@ const processImages = async (req, res, next) => {
 			}
 		}
 
+		console.log('Images traitées avec succès :', req.processedImages);
 		next();
 	} catch (error) {
 		console.error('Erreur lors du traitement des images :', error);

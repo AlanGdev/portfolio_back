@@ -4,6 +4,7 @@ const Skill = require('./models/skill');
 const userRouter = require('./routes/user');
 const skillRouter = require('./routes/skill');
 const projectRouter = require('./routes/project');
+const technoRouter = require('./routes/techno');
 require('dotenv').config();
 
 const app = express();
@@ -36,5 +37,6 @@ app.use((req, res, next) => {
 app.use('/api/auth/', userRouter);
 app.use('/api/skills/', skillRouter);
 app.use('/api/projects/', projectRouter);
+app.use('/api/techno/', technoRouter);
 
 module.exports = app;

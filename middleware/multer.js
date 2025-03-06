@@ -4,6 +4,12 @@ const multer = require('multer');
 const storage = multer.memoryStorage();
 
 const fileFilter = (req, file, cb) => {
+	console.log(
+		"Tentative d'upload du fichier :",
+		file?.originalname,
+		'Type:',
+		file?.mimetype,
+	);
 	const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
 	if (allowedTypes.includes(file.mimetype)) {
 		cb(null, true);
