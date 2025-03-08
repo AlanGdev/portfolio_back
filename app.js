@@ -30,7 +30,7 @@ app.use((req, res, next) => {
 	);
 	next();
 });
-app.use((req,res,next)=>res.status(200).json({message:'App running!-)'}))
+// app.use((req,res,next)=>res.status(200).json({message:'App running!-)'}))
 
 app.use('/api/auth/', userRouter);
 app.use('/api/skills/', skillRouter);
