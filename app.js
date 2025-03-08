@@ -5,6 +5,7 @@ const userRouter = require('./routes/user');
 const skillRouter = require('./routes/skill');
 const projectRouter = require('./routes/project');
 const technoRouter = require('./routes/techno');
+const contactRouter = require('./routes/contact');
 require('dotenv').config();
 
 const app = express();
@@ -30,13 +31,10 @@ app.use((req, res, next) => {
 	next();
 });
 
-/*app.use((req, res) => {
-	res.json({ message: 'requête reçue côté app.js' });
-});*/
-
 app.use('/api/auth/', userRouter);
 app.use('/api/skills/', skillRouter);
 app.use('/api/projects/', projectRouter);
 app.use('/api/techno/', technoRouter);
+app.use('/api/contact/', contactRouter);
 
 module.exports = app;
