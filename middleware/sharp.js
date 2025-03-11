@@ -7,7 +7,7 @@ if (!fs.existsSync(imageFolderPath)) {
 	fs.mkdirSync(imageFolderPath, { recursive: true });
 }
 
-const BASE_URL = 'http://localhost:4000';
+const BASE_URL = 'https://portfolio-back-wi8r.onrender.com';
 
 const processImages = async (req, res, next) => {
 	console.log(
