@@ -12,7 +12,10 @@ const projectSchema = new mongoose.Schema({
 	lien_demo: { type: String },
 	image: { type: String, required: true },
 	images_detail: [{ type: String }],
-	technologies: [{ type: String, required: true }],
+	problematics: [{ type: String }],
+	technologies: [
+		{ type: mongoose.Schema.Types.ObjectId, ref: 'Technology', required: true },
+	],
 	date_creation: { type: Date, default: Date.now },
 });
 

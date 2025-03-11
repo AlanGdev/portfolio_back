@@ -1,24 +1,27 @@
 const mongoose = require('mongoose');
-const skillSchema = mongoose.Schema({
-	nom: { type: String, required: true },
+const mongoose = require('mongoose');
+
+const skillSchema = new mongoose.Schema({
 	categorie: {
 		type: String,
-		enum: ['Front-End', 'Back-End', 'Outils & Workflow'],
 		required: true,
 	},
-	niveau: {
-		type: String,
-		enum: ['Débutant', 'Intermédiaire', 'Avancé'],
-		required: true,
-	},
-	description: { type: String, required: true },
-	technologies: [{ type: String }], // Liste des technos utilisées
-	projets_associes: [
+	skills: [
 		{
-			nom: { type: String, required: true },
-			lien_github: { type: String, required: true },
+			type: String,
+			required: true,
 		},
 	],
+	projets: [
+		{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'Projet',
+		},
+	],
+	dateAjout: {
+		type: Date,
+		default: Date.now,
+	},
 });
 
 module.exports = mongoose.model('Skill', skillSchema);
