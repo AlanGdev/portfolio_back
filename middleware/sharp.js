@@ -7,17 +7,26 @@ require('dotenv').config();
 cloudinary.config();
 
 const uploadToCloudinary = async (buffer, folder) => {
-  return new Promise((resolve, reject) => {
-    const uploadStream = cloudinary.uploader.upload_stream(
-      { folder: folder, format: 'webp', quality: 'auto' },
-      (error, result) => {
-        if (error) reject(error);
-        else resolve(result.secure_url); // URL sécurisée de l'image
-      }
-    );
-    streamifier.createReadStream(buffer).pipe(uploadStream);
-  });
-};
+	return new Promise((resolve, reject) => {
+	  console.log(" Upload vers Cloudinary en cours...");
+	  console.log("CLOUDINARY_URL :", process.env.CLOUDINARY_URL);
+  
+	  const uploadStream = cloudinary.uploader.upload_stream(
+		{ folder: folder, format: 'webp', quality: 'auto' },
+		(error, result) => {
+		  if (error) {
+			console.error(" Erreur d'upload vers Cloudinary :", error);
+			reject(error);
+		  } else {
+			console.log(" Upload réussi sur Cloudinary :", result.secure_url);
+			resolve(result.secure_url);
+		  }
+		}
+	  );
+  
+	  streamifier.createReadStream(buffer).pipe(uploadStream);
+	});
+  };
 
 const processImages = async (req, res, next) => {
   console.log(
