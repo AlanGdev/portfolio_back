@@ -7,19 +7,35 @@ exports.createProject = async (req, res) => {
 		console.log('Données reçues :', req.body);
 		console.log('Images traitées :', req.processedImages);
 
-		const { nom, description, categorie, lien_github, lien_demo, technologies } = req.body;
+		const {
+			nom,
+			description,
+			categorie,
+			lien_github,
+			lien_demo,
+			technologies,
+		} = req.body;
 
 		if (!nom || !description || !categorie || !technologies) {
-			return res.status(400).json({ message: 'Tous les champs requis doivent être remplis' });
+			return res
+				.status(400)
+				.json({ message: 'Tous les champs requis doivent être remplis' });
 		}
 
 		// Vérification et conversion des technologies en ObjectId
 		let formattedTechnologies = [];
 		try {
-			const parsedTechnologies = typeof technologies === 'string' ? JSON.parse(technologies) : technologies;
-			formattedTechnologies = parsedTechnologies.map(tech => new mongoose.Types.ObjectId(tech));
+			const parsedTechnologies =
+				typeof technologies === 'string'
+					? JSON.parse(technologies)
+					: technologies;
+			formattedTechnologies = parsedTechnologies.map(
+				(tech) => new mongoose.Types.ObjectId(tech),
+			);
 		} catch (error) {
-			return res.status(400).json({ message: 'Format incorrect des technologies.' });
+			return res
+				.status(400)
+				.json({ message: 'Format incorrect des technologies.' });
 		}
 
 		const newProject = new Project({
@@ -28,13 +44,16 @@ exports.createProject = async (req, res) => {
 			categorie,
 			lien_github,
 			lien_demo,
+			problematics,
 			image: req.processedImages.image || null,
 			images_detail: req.processedImages.images_detail || [],
-			technologies: formattedTechnologies, // Correction ici
+			technologies: formattedTechnologies,
 		});
 
 		await newProject.save();
-		res.status(201).json({ message: 'Projet ajouté avec succès', project: newProject });
+		res
+			.status(201)
+			.json({ message: 'Projet ajouté avec succès', project: newProject });
 	} catch (error) {
 		console.error('Erreur serveur :', error);
 		res.status(500).json({ message: 'Erreur serveur', error: error.message });
