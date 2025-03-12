@@ -14,6 +14,7 @@ exports.createProject = async (req, res) => {
 			lien_github,
 			lien_demo,
 			technologies,
+			problematics,
 		} = req.body;
 
 		if (!nom || !description || !categorie || !technologies) {
