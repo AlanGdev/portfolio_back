@@ -24,3 +24,8 @@ exports.createMessage = (req, res, next) => {
 		res.status(500).json({ message: 'erreur serveur', error: error.message });
 	}
 };
+exports.getMessages = (req, res, next) => {
+	Contact.find()
+		.then((contacts) => res.status(200).json(contacts))
+		.catch((error) => res.status(500).json({ error: 'Erreur serveur' }));
+};
