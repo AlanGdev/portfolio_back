@@ -69,7 +69,7 @@ exports.getProjects = (req, res, next) => {
 
 exports.getOneProject = (req, res, next) => {
 	console.log('find One');
-	Project.findOne({ _id: req.params.id }).populate('Technology')
+	Project.findOne({ _id: req.params.id }).populate('technologies')
 		.then((project) => {
 			if (!project) {
 				return res.status(400).json({ error: 'requête invalide' });
