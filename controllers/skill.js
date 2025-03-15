@@ -36,8 +36,15 @@ exports.createSkill = async (req, res) => {
     res.status(500).json({ message: 'Erreur serveur', error: error.message });
   }
 };
-exports.getSkills=(req,res)=>{
-  Skill.find().populate('projets')
-  .then((skills)=>res.status(200).json(skills))
-  .catch((error)=>res.status(500).json({error:'Erreur serveur'}))
+exports.getSkills=async(req,res)=>{
+  try{
+    const skills=await Skill.find().populate('projets')
+    console.log('données récupérées:',skills)
+    if(!skills.lenght){
+      return res.status(404).json({message:'aucune compétence trouvée'})
+    }
+    res.status(200).json(skills)
+  }catch(error){
+res.status(500).json({message:'Erreur serveur',error:error.message})
+  }
 }
