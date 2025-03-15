@@ -14,7 +14,7 @@ const skillSchema = new mongoose.Schema({
 	projets: [
 		{
 			type: mongoose.Schema.Types.ObjectId,
-			ref: 'Projet',
+			ref: 'Project',
 		},
 	],
 	dateAjout: {
