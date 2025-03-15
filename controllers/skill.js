@@ -37,7 +37,7 @@ exports.createSkill = async (req, res) => {
   }
 };
 exports.getSkills=(req,res)=>{
-  Skill.find()
+  Skill.find().populate('projets')
   .then((skills)=>res.status(200).json(skills))
   .catch((error)=>res.status(500).json({error:'Erreur serveur'}))
 }
