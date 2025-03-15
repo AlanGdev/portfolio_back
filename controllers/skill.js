@@ -36,3 +36,8 @@ exports.createSkill = async (req, res) => {
     res.status(500).json({ message: 'Erreur serveur', error: error.message });
   }
 };
+exports.getSkills=(req,res)=>{
+  Skill.find()
+  .then((skills)=>res.status(200).json(skills))
+  .catch((error)=>res.status(500).json({error:'Erreur serveur'}))
+}

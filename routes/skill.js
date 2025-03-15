@@ -5,5 +5,6 @@ const auth = require('../middleware/auth');
 const router = express.Router();
 
 router.post('/', auth, skillCtrl.createSkill);
+router.get('/',skillCtrl.getSkills)
 
 module.exports = router;
