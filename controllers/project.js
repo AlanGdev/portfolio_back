@@ -25,11 +25,13 @@ exports.createProject = async (req, res) => {
 
 		// Vérification et conversion des technologies en ObjectId
 		let formattedTechnologies = [];
+		let formattedProblematics=[]
 		try {
 			const parsedProblematics =
 			typeof problematics === 'string'
 				? JSON.parse(problematics)
 				: problematics;
+				formattedProblematics=parsedProblematics
 
 			const parsedTechnologies =
 				typeof technologies === 'string'
@@ -50,7 +52,7 @@ exports.createProject = async (req, res) => {
 			categorie,
 			lien_github,
 			lien_demo,
-			problematics:parsedProblematics,
+			problematics:formattedProblematics,
 			image: req.processedImages.image || null,
 			images_detail: req.processedImages.images_detail || [],
 			technologies: formattedTechnologies,
